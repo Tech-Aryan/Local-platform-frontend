@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const PostTask = () => {
   const [task, setTask] = useState({
@@ -12,12 +13,11 @@ const PostTask = () => {
     priority: 'Normal', // Default priority
     seekerId: 'defaultSeekerId', // You can dynamically change this based on logged-in user
   });
-  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   const handleTaskSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${backendURL}/api/tasks`, {  // Adjusted endpoint
+      const response = await fetch(`${API_URL}/api/tasks`, {  // Adjusted endpoint
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(task),

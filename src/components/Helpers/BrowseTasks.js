@@ -22,12 +22,11 @@ const BrowseTasks = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const location = useLocation();
-  const backendURL = process.env.REACT_APP_BACKEND_URL;
-
+  const API_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch(`${backendURL}/api/tasks`);
+        const response = await fetch(`${API_URL}/api/tasks`);
         if (!response.ok) throw new Error('Failed to fetch tasks');
         const data = await response.json();
         setTasks(data);

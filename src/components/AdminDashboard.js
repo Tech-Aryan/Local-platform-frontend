@@ -12,6 +12,8 @@ import {
   ArcElement,
 } from 'chart.js';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 // Registering required components for Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
@@ -20,7 +22,6 @@ const AdminDashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
-  const backendURL = process.env.REACT_APP_BACKEND_URL;
 
   // Fetch all users and tasks from the backend
   useEffect(() => {
@@ -30,7 +31,7 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`${backendURL}/api/admin/users`);
+      const response = await axios.get(`${API_URL}/api/admin/users`);
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users', error);
@@ -39,7 +40,7 @@ const AdminDashboard = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`${backendURL}/api/admin/tasks`);
+      const response = await axios.get(`${API_URL}/api/admin/tasks`);
       setTasks(response.data);
     } catch (error) {
       console.error('Error fetching tasks', error);
@@ -54,7 +55,7 @@ const AdminDashboard = () => {
         email: selectedUser.email,
         role: selectedUser.role,
       };
-      await axios.put(`${backendURL}/api/admin/users/${selectedUser._id}`, updatedUser);
+      await axios.put(`${API_URL}/api/admin/users/${selectedUser._id}`, updatedUser);
       fetchUsers(); // Re-fetch users after update
       setSelectedUser(null); // Close the form
     } catch (error) {
@@ -72,7 +73,7 @@ const AdminDashboard = () => {
         budget: selectedTask.budget,
         category: selectedTask.category,
       };
-      await axios.put(`${backendURL}/api/admin/tasks/${selectedTask._id}`, updatedTask);
+      await axios.put(`${API_URL}/api/admin/tasks/${selectedTask._id}`, updatedTask);
       fetchTasks(); // Re-fetch tasks after update
       setSelectedTask(null); // Close the form
     } catch (error) {
@@ -82,7 +83,7 @@ const AdminDashboard = () => {
 
   const handleUserDelete = async (id) => {
     try {
-      await axios.delete(`${backendURL}/api/admin/users/${id}`);
+      await axios.delete(`${API_URL}/api/admin/users/${id}`);
       fetchUsers(); // Re-fetch users after deletion
     } catch (error) {
       console.error('Error deleting user', error);
@@ -91,7 +92,7 @@ const AdminDashboard = () => {
 
   const handleTaskDelete = async (id) => {
     try {
-      await axios.delete(`${backendURL}/api/admin/tasks/${id}`);
+      await axios.delete(`${API_URL}/api/admin/tasks/${id}`);
       fetchTasks(); // Re-fetch tasks after deletion
     } catch (error) {
       console.error('Error deleting task', error);

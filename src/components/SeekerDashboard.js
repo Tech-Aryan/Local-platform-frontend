@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import TaskItem from './TaskItem';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const SeekerDashboard = () => {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/seeker/tasks', {
+    fetch(`${API_URL}/api/seeker/tasks`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },

@@ -8,12 +8,12 @@ const Signup = () => {
   const [contact_no, setContactNo] = useState('');
   const [role, setRole] = useState('seeker'); // Default role
   const navigate = useNavigate();
-
+  const API_URL = process.env.REACT_APP_API_URL;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/api/signup', {
+      const response = await fetch(`${API_URL}/api/signup `, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password, contact_no, role }), // Updated 'name' to 'username'
